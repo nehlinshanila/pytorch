@@ -30,7 +30,7 @@ z = x ** 2
 z = x > 0
 z = x < 0
 
-# matrrix mul
+# matrix mul
 x1 = torch.rand((2,5))
 x2 = torch.rand((5,3))
 x3 = torch.mm(x1, x2)
@@ -61,3 +61,21 @@ x1 = torch.rand((5,5))
 x2 = torch.rand((1,5))
 
 z = x1 - x2
+z = x1 ** x2
+sum_x = torch.sum(x, dim=0)
+values, indices = torch.max(x, dim =0)
+values, indices = torch.min(x, dim =0)
+abs_x = torch.abs(x)
+z = torch.argmax(x, dim=0)
+z = torch.argmin(x, dim=0)
+mean_x = torch.mean(x.float(), dim=0)
+z = torch.eq(x, y)
+# print(z)
+sorted_y, indices = torch.sort(y,dim=0, descending= False)
+
+z = torch.clamp(x, min=0)
+
+x = torch.tensor([1,0,1,1,1], dytype=torch.bool)
+z = torch.any(x)
+z = torch.all(x)
+
