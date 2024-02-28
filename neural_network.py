@@ -22,17 +22,41 @@ class NN(nn.Module):
         x = F.relu(self.fc1(x))
         x = self.fc2(x)
         return x
-    
-model = NN(784, 10)
-x = torch.randn(64, 784)
-print(model(x).shape)
-
 
 
 # set device
+device = torch.device('cuda' if torch.cuda.is_available else 'cpu')
+
 # hyperparameters
+input_size = 784
+num_classes = 10
+learning_rate = 0.001
+batch_size = 64
+num_epochs = 1
+
+
 # load data
+train_dataset = datasets.MNIST(root='dataset/', train= True, transform=transforms.ToTensor(), download=True)
+train_loader = DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True)
+test_dataset = datasets.MNIST(root='dataset/', train= False, transform=transforms.ToTensor(), download=True)
+test_loader = DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=True)
+
+
 # initialize network
+model = NN(input_size=input_size, num_classes=num_classes).to(device)
+
+
 # loss and optimizer
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+
+
 # train network
+for epoch in range(num_epochs):
+    for batch_idx, (data, targets) in enumerate(train_loader):
+        data = data.to(device=device)
+        targets = targets.to(device=device)
+        
+        print(data.shape)
+
 # check accuracy on training and test to see how good our model is
